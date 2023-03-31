@@ -1,0 +1,60 @@
+<br />
+<br />
+<br>
+<br>
+<h1 class="text-center">LogIn</h1>
+<div class="container">
+  <div class="row align-content-center justify content center">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <form [formGroup]="loginForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              loginForm.controls['email'].invalid &&
+              loginForm.controls['email'].touched &&
+              loginForm.controls['email'].dirty
+            "
+          >
+            Invalid email id
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+        >
+          Invalid password
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary" [routerLink]="['/blog']" (click)="login()">
+            login
+          </button>
+          <br />
+          <br />
+          <a routerLink="/signup">Not a User? Signup here...</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

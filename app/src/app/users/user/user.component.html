@@ -1,0 +1,59 @@
+<br />
+<br />
+<br />
+<div *ngIf="user === 'true' || admin === 'true'" >
+  <div class="text-center">
+    <div class="container">
+      <span class="fw-bold fs-1 text-primary">User Detail</span>
+      <div class="card">
+        <div class="card-body">
+          <div *ngIf="selected.avatar">
+            <img [src]="selected.avatar" alt="" width="150px" height="150px" />
+            <hr />
+          </div>
+          <span class="fw-bold">Name: </span> {{ selected.name }}
+          <hr />
+          <span class="fw-bold">Email: </span> {{ selected.email }}
+          <hr />
+          <span class="fw-bold">Mobile Number: </span> {{ selected.mNumber }}
+          <hr />
+          <span class="fw-bold">Role: </span> {{ selected.role }}
+          <hr />
+          <div class="text-center">
+            <span *ngIf="admin" >
+              <button
+              class="btn btn-success mx-1"
+              id="{{ selected._id }}"
+              [routerLink]="['/update', selected._id]"
+            >
+              Update
+            </button>
+            <button
+              class="btn btn-warning mx-1"
+              id="{{ selected._id }}"
+              (click)="deleteUser()"
+              [routerLink]="['/user']"
+            >
+              Delete
+            </button>
+            </span>
+            
+            <button class="btn-danger btn mx-1" [routerLink]="['/user']">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="admin !== 'true' ">
+  <div *ngIf="user !== 'true'">
+    <div class="container">
+      <div class="text-center">
+        <p>Only admin can access User</p>
+        <a routerLink="/login">Login</a>
+      </div>
+    </div>
+  </div> 
+</div>

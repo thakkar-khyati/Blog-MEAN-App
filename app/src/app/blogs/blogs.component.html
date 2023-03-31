@@ -1,0 +1,44 @@
+<br />
+<br />
+<br />
+<div class="container">
+  <div class="m-2">
+    <ul class="list-group" *ngFor="let blog of blogdata">
+      <li class="list-group-item m-3">
+        <div class="card-title text-primary">
+          <h1
+            class="fs-1"
+            id="{{ blog._id }}"
+            [routerLink]="['/selectedBlog', blog._id]"
+          >
+            {{ blog.title }}
+          </h1>
+        </div>
+        <div class="card-body row">
+          <hr />
+          <pre
+            class="fs-4 fw-bold col-9"
+          >Summery: <p class="fs-6 fw-normal">            {{ blog.summery}}</p> </pre>
+          <img [src]="blog.blogImg" class="col-3" [alt]="blog.title" />
+        </div>
+
+        <div class="card-footer text-end">
+          <p>Blog by {{ blog.name }} [ {{ blog.email }} ]</p>
+          <div>
+            <button
+              class="btn btn-warning"
+              id="{{ blog._id }}"
+              [routerLink]="['/selectedBlog', blog._id]"
+            >
+              View More
+            </button>
+          </div>
+          <br />
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<br>
+<br>
+<br>

@@ -1,0 +1,71 @@
+<br />
+<br />
+<div *ngIf="admin === 'true' || user === 'true'">
+  <div class="container mt-4">
+    <div class="text-center m-4" *ngIf="admin">
+      <button class="btn btn-primary btn-lg" [routerLink]="['/signup']">
+        Add User
+      </button>
+    </div>
+    <div *ngFor="let user of users">
+      <div *ngIf="_id === user._id" class="text-center fs-3 fw-bold my-1 py-1">
+        Welcome {{ user.name }}
+        <span *ngIf="admin === 'true'" class="fs-6 text-muted">Admin</span>
+        <small class="fs-6 text-muted">(ID:{{ user._id }})</small>
+      </div>
+    </div>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Profile-Pic</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile Number</th>
+          <th scope="col">Role</th>
+          <th scope="col" class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let user of users">
+        <tr>
+          <th scope="row">
+            <span *ngIf="user.avatar">
+              <img
+                [src]="user.avatar"
+                alt=""
+                width="150px"
+                height="150px"
+                [routerLink]="['/user', user._id]"
+              />
+            </span>
+          </th>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.mNumber }}</td>
+          <td>{{ user.role }}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-primary mx-2"
+              id="{{ user._id }}"
+              [routerLink]="['/user', user._id]"
+            >
+              View More
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="mb-5"></div>
+<div *ngIf="admin !== 'true' ">
+  <div *ngIf="user !== 'true'">
+    <div class="container">
+      <div class="text-center">
+        <p>Only admin can access User</p>
+        <a routerLink="/login">Login</a>
+      </div>
+    </div>
+  </div> 
+</div>
+

@@ -1,0 +1,129 @@
+<div mat-dialog-title>
+  <h3 class="text-center fw-bold">Add your Blog</h3>
+  <hr />
+</div>
+<div mat-dialog-content>
+  <form [formGroup]="blogForm" (ngSubmit)="addBlog()">
+    <div class="my-2">
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Name"
+        formControlName="name"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        blogForm.controls['name'].invalid && blogForm.controls['name'].touched
+      "
+    >
+      Name Required
+    </div>
+    <div class="my-2">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        blogForm.controls['email'].invalid && blogForm.controls['email'].touched
+      "
+    >
+      Email Required
+    </div>
+    <div class="my-2">
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Title of Your Blog"
+        formControlName="title"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        blogForm.controls['title'].invalid && blogForm.controls['title'].touched
+      "
+    >
+      Title Required
+    </div>
+    <div class="my-2">
+        <label class="my-2" for="blogImg">Add an image for your Blog</label>
+      <input
+        type="file"
+        class="form-control"
+        id="blogImg"
+        placeholder="Image for Your Blog"
+        formControlName="blogImg"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        blogForm.controls['blogImg'].invalid && blogForm.controls['blogImg'].touched
+      "
+    >
+      Image Required
+    </div>
+    <div class="my-2">
+      <textarea
+        type="text"
+        class="form-control"
+        id="content"
+        placeholder="Write Your Blog Here"
+        rows="2"
+        formControlName="content"
+      ></textarea>
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        blogForm.controls['content'].invalid &&
+        blogForm.controls['content'].touched
+      "
+    >
+      Write some blog content
+    </div>
+    <div class="my-2">
+      <textarea
+        type="text"
+        class="form-control"
+        id="summery"
+        placeholder="Add a Summery"
+        rows="2"
+        formControlName="summery"
+      ></textarea>
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        blogForm.controls['summery'].invalid &&
+        blogForm.controls['summery'].touched
+      "
+    >
+      write a summery for your blog
+    </div>
+    <div mat-dialog-actions>
+      <div class="justify-content-end">
+        <div *ngIf="actionBtn === 'Save'" >
+          <button type="submit" class="btn btn-primary mx-2 btn-lg" [routerLink]="['/blog']" > {{actionBtn}} </button>
+          <button class="btn btn-danger mx-2 btn-lg" mat-dialog-close>Cancel</button>
+        </div>
+        <div *ngIf="actionBtn === 'Update'" >
+          <button type="submit" class="btn btn-primary mx-2 btn-lg" [routerLink]="['/selectedBlog']" > {{actionBtn}} </button>
+          <button class="btn btn-danger mx-2 btn-lg" mat-dialog-close>Cancel</button>
+        </div>
+        
+      </div>
+    </div>
+  </form>
+</div>
