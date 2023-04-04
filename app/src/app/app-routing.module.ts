@@ -7,13 +7,14 @@ import { UserComponent } from './users/user/user.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { UpdateComponent } from './users/update/update.component';
 import { LoginComponent } from './users/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path:'',redirectTo:'blog',pathMatch:'full'},
   {path:'blog',component:BlogsComponent},
   {path:'selectedBlog/:id',component:BlogComponent},
-  {path:'user',component:UsersComponent},
-  {path:'user/:id',component:UserComponent},
+  {path:'user',canActivate:[AuthGuard],component:UsersComponent},
+  {path:'user/:id',canActivate:[AuthGuard],component:UserComponent},
   {path:'signup',component:SignupComponent},
   {path:'update/:id',component:UpdateComponent},
   {path:'login',component:LoginComponent}

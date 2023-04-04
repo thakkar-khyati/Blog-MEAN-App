@@ -1,8 +1,8 @@
-<br>
-<br>
-<br>
-<br>
-<h5 class="text-center fs-3 ">Register new User</h5>
+<br />
+<br />
+<br />
+<br />
+<h5 class="text-center fs-3">Register new User</h5>
 <div class="container">
   <div class="row align-content-center justify content center">
     <div class="col-2"></div>
@@ -17,17 +17,37 @@
             placeholder="Name"
           />
         </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['name'].invalid &&
+            signupForm.controls['name'].touched
+          "
+        >
+          Write name for the user
+        </div>
         <div class="mb-2">
-            <label for="avatar" class="form-label fw-lighter">Enter Avatar for your user</label>
-            <input
-              type="file"
-              class="form-control"
-              id="avatar"
-              formControlName="avatar"
-              placeholder="avatar"
-              (change)="onFileSelected($event)"
-            />
-          </div>
+          <label for="avatar" class="form-label fw-lighter"
+            >Enter Avatar for your user</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="avatar"
+            formControlName="avatar"
+            placeholder="avatar"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['avatar'].invalid &&
+            signupForm.controls['avatar'].touched
+          "
+        >
+          pick an avatar for user
+        </div>
         <div class="mb-2">
           <input
             type="email"
@@ -37,6 +57,15 @@
             placeholder="Email Address"
           />
         </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['email'].invalid &&
+            signupForm.controls['email'].touched
+          "
+        >
+          enter a valid email address
+        </div>
         <div class="mb-2">
           <input
             type="text"
@@ -44,7 +73,16 @@
             id="mNumber"
             formControlName="mNumber"
             placeholder="Mobile Number"
-            />
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['mNumber'].invalid &&
+            signupForm.controls['mNumber'].touched
+          "
+        >
+          enter a valid Mobile Number
         </div>
         <div class="mb-2">
           <input
@@ -53,8 +91,17 @@
             id="role"
             formControlName="role"
             placeholder="Role(user or admin only)"
-            />
+          />
         </div>
+        <div
+        class="text-danger"
+        *ngIf="
+          signupForm.controls['role'].invalid &&
+          signupForm.controls['role'].touched
+        "
+      >
+        enter a role of user or admin
+      </div>
         <div class="mb-2">
           <input
             type="password"
@@ -62,8 +109,17 @@
             id="password"
             formControlName="password"
             placeholder="Password"
-            />
+          />
         </div>
+        <div
+        class="text-danger"
+        *ngIf="
+          signupForm.controls['password'].invalid &&
+          signupForm.controls['password'].touched
+        "
+      >
+        enter a valid password of 6 characters
+      </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary btn-lg">Save</button>
           <br />

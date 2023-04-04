@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../Api/api.service';
 import { Blog } from '../Models/blog.model';
-import { NgOptimizedImage } from '@angular/common'
-import { ObjectId } from 'mongodb';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -31,13 +29,4 @@ export class BlogsComponent implements OnInit {
     });
   }
 
-  // getBlogImages(blogs:Blog[]) {
-    
-  //   blogs.forEach((blog: any) => {
-  //     return blog.imgUrl = `http://localhost:3000/blog/blogImg/`+blog._id
-      
-  //   });
-  //   return blogs;
-
-  // }
 }

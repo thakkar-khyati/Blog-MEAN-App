@@ -14,8 +14,8 @@ export class UserApiService {
     return this.http.get<User[]>('http://localhost:3000/user');
   }
 
-  getUserData(id:string):Observable<User[]>{
-    return this.http.get<User[]>('http://localhost:3000/user/'+id)
+  getUserData(id:string):Observable<User>{
+    return this.http.get<User>('http://localhost:3000/user/'+id)
   }
 
   loginUser(email:string,password:string){
@@ -56,7 +56,7 @@ export class UserApiService {
     userform.append('password',password)
     userform.append('avatar',avatar,name)
 
-    this.http.put('http://localhost:3000/user/'+id,userform).subscribe({
+    return this.http.put('http://localhost:3000/user/'+id,userform).subscribe({
       next:(res)=>{
         console.log(`${name}'s data updated`)
       },

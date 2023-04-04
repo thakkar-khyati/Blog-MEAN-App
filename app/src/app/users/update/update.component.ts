@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserApiService } from 'src/app/Api/user-api.service';
 import { User } from 'src/app/Models/user.model';
 
@@ -21,7 +21,8 @@ export class UpdateComponent implements OnInit {
   constructor(
     private userApi: UserApiService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +46,7 @@ export class UpdateComponent implements OnInit {
     data.password = this.user.password
     console.log(data)
     this.userApi.updateUser(data.name,data.email, data.mNumber, data.role, data.password, data.avatar, data._id)
+    this.router.navigate(['/user/'+this._id])
   }
 
   getUser() {

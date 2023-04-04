@@ -55,12 +55,14 @@ export class DialogComponent implements OnInit {
         const data = this.blogForm.value
         this.api.postBlog(data.name, data.email, data.title,data.summery, data.content, data.blogImg)
         this.router.navigate(['/blog'])
+        location.reload()
         this.blogForm.reset()
         this.dialogRef.close('save')
       }
     }
     else{
       this.updateBlog()
+      location.reload()
     }
     
   }
@@ -68,9 +70,9 @@ export class DialogComponent implements OnInit {
   updateBlog(){
     this.blogForm.value.blogImg = this.file
     const data = this.blogForm.value
+    data.blogImg = this.file
     data._id = this.editBlog._id
     this.api.updateBlog(data.name, data.email, data.title,data.summery, data.content, data.blogImg,data._id)
-    location.reload()
     this.blogForm.reset()
     this.dialogRef.close('save')
   }

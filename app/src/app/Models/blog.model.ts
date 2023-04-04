@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb';
 
 export interface Blog {
   _id?: string;

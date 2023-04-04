@@ -1,7 +1,7 @@
 <br />
 <br />
 <br />
-<div *ngIf="user === 'true' || admin === 'true'" >
+<div>
   <div class="text-center">
     <div class="container">
       <span class="fw-bold fs-1 text-primary">User Detail</span>
@@ -46,14 +46,4 @@
       </div>
     </div>
   </div>
-</div>
-<div *ngIf="admin !== 'true' ">
-  <div *ngIf="user !== 'true'">
-    <div class="container">
-      <div class="text-center">
-        <p>Only admin can access User</p>
-        <a routerLink="/login">Login</a>
-      </div>
-    </div>
-  </div> 
 </div>

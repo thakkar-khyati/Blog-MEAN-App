@@ -41,9 +41,8 @@ export class SignupComponent implements OnInit {
         data.password,
         data.avatar
       );
-      this.router.navigate(['/user']);
+      this.router.navigate(['/login']);
       this.signupForm.reset();
-      location.reload();
     }
   }
 

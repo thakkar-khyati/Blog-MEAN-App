@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from '../Models/blog.model';
-import { ObjectId } from 'mongodb';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -48,16 +47,17 @@ export class ApiService {
     return this.http.delete('http://localhost:3000/blog/'+id)
   }
 
-  updateBlog(name:string, email:string, title:string, summery:string, content:string, image:File,id:string):void{
+  updateBlog(name:string, email:string, title:string, summery:string, content:string, blogImg:
+    File,id:string){
     const blogForm = new FormData()
     blogForm.append("name",name)
     blogForm.append("email",email)
     blogForm.append("title",title)
     blogForm.append("summery",summery)
     blogForm.append("content",content)
-    blogForm.append("blogImg", image, title)
-    
-    this.http.put('http://localhost:3000/blog/'+id,blogForm).subscribe({
+    blogForm.append("blogImg", blogImg, title)
+    console.log("blogImg",blogImg)
+    return this.http.put('http://localhost:3000/blog/'+id,blogForm).subscribe({
       next:(res)=>{
         console.log(res)
         console.log("profile updated")

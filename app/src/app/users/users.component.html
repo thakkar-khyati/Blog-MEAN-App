@@ -1,6 +1,6 @@
 <br />
 <br />
-<div *ngIf="admin === 'true' || user === 'true'">
+<div>
   <div class="container mt-4">
     <div class="text-center m-4" *ngIf="admin">
       <button class="btn btn-primary btn-lg" [routerLink]="['/signup']">
@@ -58,14 +58,3 @@
   </div>
 </div>
 <div class="mb-5"></div>
-<div *ngIf="admin !== 'true' ">
-  <div *ngIf="user !== 'true'">
-    <div class="container">
-      <div class="text-center">
-        <p>Only admin can access User</p>
-        <a routerLink="/login">Login</a>
-      </div>
-    </div>
-  </div> 
-</div>
-
