@@ -25,6 +25,9 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       mNumber: ['', [Validators.minLength(10), Validators.required]],
       role: ['', Validators.required],
+      address:['',Validators.required],
+      Dob:['', Validators.required],
+      hobbies:['',Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -39,6 +42,9 @@ export class SignupComponent implements OnInit {
         data.mNumber,
         data.role,
         data.password,
+        data.address,
+        data.Dob,
+        data.hobbies,
         data.avatar
       );
       this.router.navigate(['/login']);

@@ -9,6 +9,7 @@
     <div class="col-8">
       <form [formGroup]="signupForm" (ngSubmit)="signup()">
         <div class="mb-2">
+          <label for="name" class="form-label">Name:</label>
           <input
             type="text"
             class="form-control"
@@ -27,8 +28,8 @@
           Write name for the user
         </div>
         <div class="mb-2">
-          <label for="avatar" class="form-label fw-lighter"
-            >Enter Avatar for your user</label
+          <label for="avatar" class="form-label"
+            >Enter Avatar for your user:</label
           >
           <input
             type="file"
@@ -49,6 +50,7 @@
           pick an avatar for user
         </div>
         <div class="mb-2">
+          <label for="email" class="form-label">Email address:</label>
           <input
             type="email"
             class="form-control"
@@ -67,6 +69,7 @@
           enter a valid email address
         </div>
         <div class="mb-2">
+          <label for="mNumber" class="form-label">Mobile Number</label>
           <input
             type="text"
             class="form-control"
@@ -85,6 +88,7 @@
           enter a valid Mobile Number
         </div>
         <div class="mb-2">
+          <label for="role" class="form-label">Role(user or admin only):</label>
           <input
             type="text"
             class="form-control"
@@ -94,15 +98,73 @@
           />
         </div>
         <div
-        class="text-danger"
-        *ngIf="
-          signupForm.controls['role'].invalid &&
-          signupForm.controls['role'].touched
-        "
-      >
-        enter a role of user or admin
-      </div>
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['role'].invalid &&
+            signupForm.controls['role'].touched
+          "
+        >
+          enter a role of user or admin
+        </div>
         <div class="mb-2">
+          <label for="address" class="form-label">address:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            formControlName="address"
+            placeholder="address"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['address'].invalid &&
+            signupForm.controls['address'].touched
+          "
+        >
+          enter an address
+        </div>
+        <div class="mb-2">
+          <label for="Dob" class="form-label">Date of Birth:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="Dob"
+            formControlName="Dob"
+            placeholder="Date of Birth"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['Dob'].invalid &&
+            signupForm.controls['Dob'].touched
+          "
+        >
+          enter a valid Date of Birth
+        </div>
+        <div class="mb-2">
+          <label for="hobbies" class="form-label">Hobbies:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="hobbies"
+            formControlName="hobbies"
+            placeholder="hobbies"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['hobbies'].invalid &&
+            signupForm.controls['hobbies'].touched
+          "
+        >
+          enter a hobbies
+        </div>
+        <div class="mb-2">
+          <label for="password" class="form-label">Password:</label>
           <input
             type="password"
             class="form-control"
@@ -112,14 +174,14 @@
           />
         </div>
         <div
-        class="text-danger"
-        *ngIf="
-          signupForm.controls['password'].invalid &&
-          signupForm.controls['password'].touched
-        "
-      >
-        enter a valid password of 6 characters
-      </div>
+          class="text-danger"
+          *ngIf="
+            signupForm.controls['password'].invalid &&
+            signupForm.controls['password'].touched
+          "
+        >
+          enter a valid password of 6 characters
+        </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary btn-lg">Save</button>
           <br />

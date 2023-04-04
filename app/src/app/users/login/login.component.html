@@ -2,11 +2,12 @@
 <br />
 <br />
 <br />
-<div class="card bg-light"  *ngIf="error">
-  <div class="card-body">
-    <h2 class="text-center text-danger" >
-      {{error}}
-    </h2>
+<div *ngIf="error">
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <div class="text-center">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+     {{error}}
+    </div>
   </div>
 </div>
 <h1 class="text-center">LogIn</h1>

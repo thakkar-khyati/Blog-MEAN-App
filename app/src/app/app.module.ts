@@ -30,7 +30,7 @@ import { LoginComponent } from './users/login/login.component';
     UserComponent,
     SignupComponent,
     UpdateComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +39,9 @@ import { LoginComponent } from './users/login/login.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

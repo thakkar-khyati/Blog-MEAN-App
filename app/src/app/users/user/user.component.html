@@ -19,6 +19,12 @@
           <hr />
           <span class="fw-bold">Role: </span> {{ selected.role }}
           <hr />
+          <span class="fw-bold">Address: </span> {{ selected.address }}
+          <hr />
+          <span class="fw-bold">Date of Birth: </span> {{ selected.Dob }}
+          <hr />
+          <span class="fw-bold">Hobbies: </span> {{ selected.hobbies }}
+          <hr />
           <div class="text-center">
             <span *ngIf="admin" >
               <button
@@ -41,6 +47,8 @@
             <button class="btn-danger btn mx-1" [routerLink]="['/user']">
               Close
             </button>
+            <br>
+<br>
           </div>
         </div>
       </div>

@@ -1,17 +1,16 @@
-<br>
-<br>
-<br>
-<br>
-<div *ngIf="userAuth === 'true' || admin === 'true'">
-
-</div>
-<h5 class="text-center fs-3 ">update User</h5>
+<br />
+<br />
+<br />
+<br />
+<div *ngIf="userAuth === 'true' || admin === 'true'"></div>
+<h5 class="text-center fs-3">update User</h5>
 <div class="container">
   <div class="row align-content-center justify content center">
     <div class="col-2"></div>
     <div class="col-8">
       <form [formGroup]="updateForm">
         <div class="mb-2">
+          <label for="name">Name:</label>
           <input
             type="text"
             class="form-control"
@@ -20,18 +19,39 @@
             placeholder="Name"
           />
         </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['name'].invalid &&
+            updateForm.controls['name'].touched
+          "
+        >
+          enter a name
+        </div>
         <div class="mb-2">
-            <label for="avatar" class="form-label fw-lighter">Enter Avatar for your user</label>
-            <input
-              type="file"
-              class="form-control"
-              id="avatar"
-              formControlName="avatar"
-              placeholder="avatar"
-              (change)="onFileSelected($event)"
-            />
-          </div>
+          <label for="avatar" class="form-label fw-lighter"
+            >Enter Avatar for your user</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="avatar"
+            formControlName="avatar"
+            placeholder="avatar"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['avatar'].invalid &&
+            updateForm.controls['avatar'].touched
+          "
+        >
+          enter an image for avatar
+        </div>
         <div class="mb-2">
+          <label for="email">Email Address:</label>
           <input
             type="email"
             class="form-control"
@@ -40,26 +60,120 @@
             placeholder="Email Address"
           />
         </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['email'].invalid &&
+            updateForm.controls['email'].touched
+          "
+        >
+          enter a valid email
+        </div>
         <div class="mb-2">
+          <label for="mNumber">Mobile Number:</label>
           <input
             type="text"
             class="form-control"
             id="mNumber"
             formControlName="mNumber"
             placeholder="Mobile Number"
-            />
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['mNumber'].invalid &&
+            updateForm.controls['mNumber'].touched
+          "
+        >
+          enter a valid Mobile Number
         </div>
         <div class="mb-2">
+          <label for="role">Role(either admin or user):</label>
           <input
             type="text"
             class="form-control"
             id="role"
             formControlName="role"
             placeholder="Role(user or admin only)"
-            />
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['role'].invalid &&
+            updateForm.controls['role'].touched
+          "
+        >
+          enter a valid role of either admin or user
+        </div>
+        <div class="mb-2">
+          <label for="address" class="form-label">address:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            formControlName="address"
+            placeholder="address"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['address'].invalid &&
+            updateForm.controls['address'].touched
+          "
+        >
+          enter an address
+        </div>
+        <div class="mb-2">
+          <label for="Dob" class="form-label">Date of Birth:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="Dob"
+            formControlName="Dob"
+            placeholder="Date of Birth"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['Dob'].invalid &&
+            updateForm.controls['Dob'].touched
+          "
+        >
+          enter a valid Date of Birth
+        </div>
+        <div class="mb-2">
+          <label for="hobbies" class="form-label">Hobbies:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="hobbies"
+            formControlName="hobbies"
+            placeholder="hobbies"
+          />
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            updateForm.controls['hobbies'].invalid &&
+            updateForm.controls['hobbies'].touched
+          "
+        >
+          enter a hobbies
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary btn-lg" (click)="update()" >Update</button>
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg"
+            (click)="update()"
+          >
+            Update
+          </button>
+          <br />
+          <br />
           <br />
           <br />
         </div>

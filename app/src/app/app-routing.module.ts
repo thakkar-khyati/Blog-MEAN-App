@@ -16,7 +16,7 @@ const routes: Routes = [
   {path:'user',canActivate:[AuthGuard],component:UsersComponent},
   {path:'user/:id',canActivate:[AuthGuard],component:UserComponent},
   {path:'signup',component:SignupComponent},
-  {path:'update/:id',component:UpdateComponent},
+  {path:'update/:id',canActivate:[AuthGuard],component:UpdateComponent},
   {path:'login',component:LoginComponent}
 ];
 

@@ -21,12 +21,11 @@ export class BlogsComponent implements OnInit {
     return this.api.getBlog().subscribe({
       next: (res: Blog[]) => {
         this.blogdata = res;
-        console.log(this.blogdata)
+        
       },
       error: (e) => {
         console.log(e);
       },
     });
   }
-
 }

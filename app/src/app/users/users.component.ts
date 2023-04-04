@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit{
   admin=localStorage.getItem("admin")
   user=localStorage.getItem("user")
   _id = localStorage.getItem('_id')
+  isLoggedIn = localStorage.getItem('isLoggedIn')
 
   constructor(private userApi:UserApiService, private dialog:MatDialog, private router: Router){
 

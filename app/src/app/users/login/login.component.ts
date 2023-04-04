@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserApiService } from 'src/app/Api/user-api.service';
@@ -11,11 +11,12 @@ import { UserApiService } from 'src/app/Api/user-api.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   error!: String;
+  isLoggedIn = localStorage.getItem('isLoggedin')
 
   constructor(
     private userApi: UserApiService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +24,10 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+    
   }
+
+
   login() {
     this.userApi
       .loginUser(this.loginForm.value.email, this.loginForm.value.password)
@@ -37,9 +41,7 @@ export class LoginComponent implements OnInit {
           }
           localStorage.setItem('_id', res._id);
           localStorage.setItem('isLoggedIn', 'true');
-
-          this.router.navigate(['/blog']);
-          location.reload();
+          this.router.navigate(['/blog'],{skipLocationChange:false})
         },
         error: (e) => {
           this.error = 'login failed try again';

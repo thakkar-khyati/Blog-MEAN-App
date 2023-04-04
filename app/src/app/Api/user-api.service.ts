@@ -25,13 +25,16 @@ export class UserApiService {
     return this.http.post('http://localhost:3000/user/login',user)
   }
 
-  postUser(name:string, email:string, mNumber:string, role:string, password:string, avatar:string):void{
+  postUser(name:string, email:string, mNumber:string, role:string, password:string,address:string,Dob:any,hobbies:string, avatar:string):void{
     const userform= new FormData()
     userform.append('name',name)
     userform.append('email',email)
     userform.append('mNumber',mNumber)
     userform.append('role',role)
     userform.append('password',password)
+    userform.append('address',address)
+    userform.append('Dob',Dob)
+    userform.append('hobbies',hobbies)
     userform.append('avatar',avatar,name)
     this.http.post('http://localhost:3000/user',userform).subscribe({
       next:(res)=>{
@@ -47,13 +50,16 @@ export class UserApiService {
     return this.http.delete('http://localhost:3000/user/'+id)
   }
 
-  updateUser(name:string, email:string, mNumber:string, role:string, password:string, avatar:string,id:string){
+  updateUser(name:string, email:string, mNumber:string, role:string, password:string,address:string,Dob:any,hobbies:string, avatar:string,id:string){
     const userform = new FormData()
     userform.append('name',name)
     userform.append('email',email)
     userform.append('mNumber',mNumber)
     userform.append('role',role)
     userform.append('password',password)
+    userform.append('address',address)
+    userform.append('Dob',Dob)
+    userform.append('hobbies',hobbies)
     userform.append('avatar',avatar,name)
 
     return this.http.put('http://localhost:3000/user/'+id,userform).subscribe({
