@@ -11,6 +11,8 @@ import { UserApiService } from 'src/app/Api/user-api.service';
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   file: any;
+  error!: string;
+  today = new Date()
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,9 +27,9 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       mNumber: ['', [Validators.minLength(10), Validators.required]],
       role: ['', Validators.required],
-      address:['',Validators.required],
-      Dob:['', Validators.required],
-      hobbies:['',Validators.required],
+      address: ['', Validators.required],
+      Dob: ['', Validators.required],
+      hobbies: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -36,6 +38,7 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.signupForm.value.avatar = this.file;
       const data = this.signupForm.value;
+
       this.userAPi.postUser(
         data.name,
         data.email,

@@ -104,7 +104,7 @@
             signupForm.controls['role'].touched
           "
         >
-          enter a role of user or admin
+          enter role of either admin or user or writer
         </div>
         <div class="mb-2">
           <label for="address" class="form-label">address:</label>
@@ -128,12 +128,16 @@
         <div class="mb-2">
           <label for="Dob" class="form-label">Date of Birth:</label>
           <input
+            matInput
             type="date"
             class="form-control"
             id="Dob"
             formControlName="Dob"
             placeholder="Date of Birth"
+            [matDatepicker]="picker"
+            [max]="today"
           />
+          <mat-datepicker #picker></mat-datepicker>
         </div>
         <div
           class="text-danger"

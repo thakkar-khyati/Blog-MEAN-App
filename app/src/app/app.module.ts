@@ -17,6 +17,10 @@ import { UserComponent } from './users/user/user.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { UpdateComponent } from './users/update/update.component';
 import { LoginComponent } from './users/login/login.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import { LoginComponent } from './users/login/login.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],

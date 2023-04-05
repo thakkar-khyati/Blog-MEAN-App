@@ -15,6 +15,8 @@ export class UpdateComponent implements OnInit {
   _id!: string;
   user!: User;
 
+  today = new Date()
+
   admin = localStorage.getItem('admin');
   userAuth = localStorage.getItem('user');
 
@@ -72,6 +74,9 @@ export class UpdateComponent implements OnInit {
         this.updateForm.controls['email'].setValue(this.user.email);
         this.updateForm.controls['mNumber'].setValue(this.user.mNumber);
         this.updateForm.controls['role'].setValue(this.user.role);
+        this.updateForm.controls['address'].setValue(this.user.role);
+        this.updateForm.controls['Dob'].setValue(this.user.Dob)
+        this.updateForm.controls['hobbies'].setValue(this.user.hobbies)
       },
       error: (e) => {
         console.log(e);

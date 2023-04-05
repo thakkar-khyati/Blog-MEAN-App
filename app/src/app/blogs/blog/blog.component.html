@@ -6,7 +6,7 @@
           <ul class="list-group">
             <li class="list-group-item m-3">
               <div class="card-title text-primary">
-                
+
                 <h1 class="fs-2">{{ selected.title }}</h1>
                 <p class="text-end">
                   <button class="btn btn-primary mx-2 mb-2" routerLink="/blog">
@@ -30,10 +30,10 @@
                   <img [src]="selected.blogImg" alt="" width="80%" height="80%" >
                 </div>
               </div>
-              
+
               <div class="card-footer text-end">
                 <p>Blog by {{ selected.name }} [ {{ selected.email }} ]</p>
-                <div *ngIf="admin === 'true'" >
+                <div *ngIf="admin || writer" >
                   <button
                     class="btn btn-success mx-2"
                     id="{{ selected._id }}"
@@ -46,7 +46,7 @@
                     class="btn btn-danger mx-2"
                     id="{{ selected._id }}"
                     (click)="deleteBlog()"
-                    
+
                   >
                     <i class="bi bi-trash-fill"></i>Delete
                   </button>

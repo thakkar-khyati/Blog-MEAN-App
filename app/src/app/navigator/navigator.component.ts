@@ -14,12 +14,13 @@ export class NavigatorComponent implements OnInit {
   actionBtn:String ='Login'
   admin = localStorage.getItem("admin")
   user = localStorage.getItem("user")
+  writer = localStorage.getItem("writer")
   id = localStorage.getItem("_id")
 
   constructor(private dialog:MatDialog, private router:Router,private userApi:UserApiService){}
 
   ngOnInit(): void {
-    if(this.admin === 'true' || this.user === 'true' ){
+    if(this.admin || this.user || this.writer ){
       this.actionBtn = 'Logout'
     }
   }
@@ -30,8 +31,9 @@ export class NavigatorComponent implements OnInit {
     localStorage.removeItem("_id")
     localStorage.removeItem("token")
     localStorage.removeItem("isLoggedIn")
+    localStorage.removeItem("writer")
     this.actionBtn = 'Login'
-    
+
     this.router.navigate(['/blog']);
     location.reload()
   }

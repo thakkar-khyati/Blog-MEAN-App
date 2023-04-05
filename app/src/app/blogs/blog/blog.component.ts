@@ -16,6 +16,7 @@ export class BlogComponent implements OnInit {
 
   admin = localStorage.getItem('admin')
   user = localStorage.getItem('user')
+  writer = localStorage.getItem("writer")
 
   constructor(
     private route: ActivatedRoute,

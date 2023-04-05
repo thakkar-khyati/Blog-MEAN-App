@@ -7,17 +7,14 @@
           <a class="nav-link " href="#">Home</a>
         </li>
         <li class="nav-item">
-          <span *ngIf="user" >
-            <a class="nav-link" href="" [routerLink]="['/user']">Users</a>
-          </span>
-          <span *ngIf="admin" >
+          <span *ngIf="user || admin || writer" >
             <a class="nav-link" href="" [routerLink]="['/user']">Users</a>
           </span>
         </li>
       </ul>
     </div>
     <div class="text-end">
-      <span *ngIf="admin" >
+      <span *ngIf="admin || writer" >
         <button class="btn btn-lg btn-success mx-2" (click)="openDialog()" >Add Blog</button>
       </span>
       <span *ngIf="actionBtn === 'Login'" >

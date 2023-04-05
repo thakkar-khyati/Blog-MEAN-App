@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-    
+
   }
 
 
@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
           console.log(`logged in as ${res.name}`);
           if (res.role === 'admin') {
             localStorage.setItem('admin', 'true');
-          } else {
+          } else if(res.role === 'writer'){
+            localStorage.setItem('writer','true')
+          } else{
             localStorage.setItem('user', 'true');
           }
           localStorage.setItem('_id', res._id);

@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../Models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserApiService {
 
-  constructor(private http:HttpClient) { }
+
+  constructor(private http:HttpClient, private router: Router) { }
 
   getUser():Observable<User[]>{
     return this.http.get<User[]>('http://localhost:3000/user');
@@ -42,6 +44,7 @@ export class UserApiService {
       },
       error:(e)=>{
         console.log(e)
+        this.router.navigate(['/signup'])
       }
     })
   }
