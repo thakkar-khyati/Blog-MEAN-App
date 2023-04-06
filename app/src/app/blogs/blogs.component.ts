@@ -44,9 +44,9 @@ export class BlogsComponent implements OnInit {
     this.getAllBlogs()
   }
 
-  oncardSizeChange(event:any){
-    this.tabelSize = event.target.value
-    this.page = 1
-    this.getAllBlogs()
-  }
+  // oncardSizeChange(event:any){
+  //   this.tabelSize = event.target.value
+  //   this.page = 1
+  //   this.getAllBlogs()
+  // }
 }
