@@ -10,20 +10,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BlogsComponent implements OnInit {
   blogdata: Blog[] = [];
-  reload = localStorage.getItem('reload')
+  reload = localStorage.getItem('reload');
 
-  page:number = 1
-  count:number = 0
-  tabelSize:number =3
-  tabelSizes:any = [5,10,15,20]
+  page: number = 1;
+  count: number = 0;
+  tabelSize: number = 3;
+  tabelSizes: any = [5, 10, 15, 20];
 
-  constructor(private api: ApiService,private http:HttpClient) {}
+  constructor(private api: ApiService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.getAllBlogs();
-    if(this.reload){
-      localStorage.removeItem('reload')
-      location.reload()
+    if (this.reload) {
+      localStorage.removeItem('reload');
+      location.reload();
     }
   }
 
@@ -31,7 +31,6 @@ export class BlogsComponent implements OnInit {
     return this.api.getBlog().subscribe({
       next: (res: Blog[]) => {
         this.blogdata = res;
-
       },
       error: (e) => {
         console.log(e);
@@ -39,9 +38,10 @@ export class BlogsComponent implements OnInit {
     });
   }
 
-  onCardDataChange(event:any){
-    this.page = event
-    this.getAllBlogs()
-  }
+  onCardDataChange(event: any) {
+    this.page = event;
 
+    window.scrollTo(0, 0);
+    this.getAllBlogs();
+  }
 }

@@ -46,6 +46,7 @@ export class UsersComponent implements OnInit{
 
   onCardDataChange(event:any){
     this.page = event
+    window.scrollTo(0, 0);
     this.getAllUsers()
   }
 
