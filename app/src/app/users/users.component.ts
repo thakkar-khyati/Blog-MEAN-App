@@ -49,10 +49,4 @@ export class UsersComponent implements OnInit{
     this.getAllUsers()
   }
 
-  // oncardSizeChange(event:any){
-  //   this.tabelSize = event.target.value
-  //   this.page = 1
-  //   this.getAllUsers()
-  // }
-
 }
