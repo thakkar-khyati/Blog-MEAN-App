@@ -13,6 +13,7 @@ export class SignupComponent implements OnInit {
   file: any;
   error!: string;
   today = new Date()
+  admin = localStorage.getItem('admin')
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +39,6 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.signupForm.value.avatar = this.file;
       const data = this.signupForm.value;
-
       this.userAPi.postUser(
         data.name,
         data.email,

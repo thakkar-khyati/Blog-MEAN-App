@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
           }
           localStorage.setItem('_id', res._id);
           localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('reload', 'true');
           this.router.navigate(['/blog'],{skipLocationChange:false})
         },
         error: (e) => {

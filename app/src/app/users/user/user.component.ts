@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterEvent } from '@angular/router';
+import { ActivatedRoute, Router, RouterEvent } from '@angular/router';
 import { UserApiService } from 'src/app/Api/user-api.service';
 import { User } from 'src/app/Models/user.model';
 
@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
   admin = localStorage.getItem("admin")
   user = localStorage.getItem("user")
 
-  constructor(private userApi:UserApiService, private route:ActivatedRoute){
+  constructor(private userApi:UserApiService, private route:ActivatedRoute, private router:Router){
 
   }
 
@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
     this.userApi.deleteUser(this._id).subscribe({
       next:(res)=>{
         console.log(`${this.selected.name}'data deleted`)
+        this.router.navigate(['/user'])
       }
     })
   }

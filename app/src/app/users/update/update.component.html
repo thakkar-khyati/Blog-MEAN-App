@@ -90,13 +90,19 @@
         </div>
         <div class="mb-2">
           <label for="role">Role(either admin or user):</label>
-          <input
+          <!-- <input
             type="text"
             class="form-control"
             id="role"
             formControlName="role"
             placeholder="Role(user or admin only)"
-          />
+          /> -->
+          <select class="form-select" id="role"
+          formControlName="role">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+            <option value="writer">Writer</option>
+          </select>
         </div>
         <div
           class="text-danger"

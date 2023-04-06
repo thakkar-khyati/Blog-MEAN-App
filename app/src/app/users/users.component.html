@@ -1,7 +1,12 @@
 <br />
 <br />
-<div>
-  <div class="container mt-4">
+<div *ngIf="users.length <=0 ">
+  <div class="fw-bold text-center fs-1 text-secondary">
+    No Users to Show
+  </div>
+</div>
+<div *ngIf="users.length > 0" >
+  <div  class="container mt-4">
     <div class="text-center m-4" *ngIf="admin">
       <button class="btn btn-primary btn-lg" [routerLink]="['/signup']">
         Add User

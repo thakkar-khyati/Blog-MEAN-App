@@ -10,18 +10,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BlogsComponent implements OnInit {
   blogdata: Blog[] = [];
+  reload = localStorage.getItem('reload')
 
   constructor(private api: ApiService,private http:HttpClient) {}
 
   ngOnInit(): void {
     this.getAllBlogs();
+    if(this.reload){
+      localStorage.removeItem('reload')
+      location.reload()
+    }
   }
 
   getAllBlogs() {
     return this.api.getBlog().subscribe({
       next: (res: Blog[]) => {
         this.blogdata = res;
-        
+
       },
       error: (e) => {
         console.log(e);

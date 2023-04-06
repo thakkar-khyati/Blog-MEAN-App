@@ -1,7 +1,12 @@
 <br />
 <br />
 <br />
-<div>
+<div *ngIf="!selected">
+  <div class="fw-bold text-center fs-1 text-secondary">
+    user not found
+  </div>
+</div>
+<div *ngIf="selected">
   <div class="text-center">
     <div class="container">
       <span class="fw-bold fs-1 text-primary">User Detail</span>
@@ -43,7 +48,7 @@
               Delete
             </button>
             </span>
-            
+
             <button class="btn-danger btn mx-1" [routerLink]="['/user']">
               Close
             </button>
