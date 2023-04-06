@@ -3,7 +3,19 @@
 <br />
 <div class="container">
   <div class="m-2">
-    <ul class="list-group" *ngFor="let blog of blogdata">
+    <ul
+      class="list-group"
+      *ngFor="
+        let blog of blogdata
+          | paginate
+            : {
+                itemsPerPage: tabelSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index
+      "
+    >
       <li class="list-group-item m-3">
         <div class="card-title text-primary">
           <h1
@@ -37,15 +49,25 @@
         </div>
       </li>
     </ul>
+
+    <div>
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onCardDataChange($event)"
+      >
+      </pagination-controls>
+    </div>
+    <br>
+    <br>
+    <br>
   </div>
 </div>
 
-<div *ngIf="blogdata.length <= 0 " >
-  <div class="fw-bold text-center fs-1 text-secondary">
-    No blogs to Show
-  </div>
+<div *ngIf="blogdata.length <= 0">
+  <div class="fw-bold text-center fs-1 text-secondary">No blogs to Show</div>
 </div>
 
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />

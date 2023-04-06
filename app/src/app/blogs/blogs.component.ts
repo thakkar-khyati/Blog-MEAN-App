@@ -12,6 +12,11 @@ export class BlogsComponent implements OnInit {
   blogdata: Blog[] = [];
   reload = localStorage.getItem('reload')
 
+  page:number = 1
+  count:number = 0
+  tabelSize:number =3
+  tabelSizes:any = [5,10,15,20]
+
   constructor(private api: ApiService,private http:HttpClient) {}
 
   ngOnInit(): void {
@@ -32,5 +37,16 @@ export class BlogsComponent implements OnInit {
         console.log(e);
       },
     });
+  }
+
+  onCardDataChange(event:any){
+    this.page = event
+    this.getAllBlogs()
+  }
+
+  oncardSizeChange(event:any){
+    this.tabelSize = event.target.value
+    this.page = 1
+    this.getAllBlogs()
   }
 }
