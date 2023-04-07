@@ -19,7 +19,7 @@
       <li class="list-group-item m-3">
         <div class="card-title text-primary">
           <h1
-            class="fs-1"
+            class="fs-1 mx-3 mt-1"
             id="{{ blog._id }}"
             [routerLink]="['/selectedBlog', blog._id]"
           >
@@ -31,7 +31,7 @@
           <pre
             class="fs-4 fw-bold col-9"
           >Summery: <p class="fs-6 fw-normal">            {{ blog.summery}}</p> </pre>
-          <img [src]="blog.blogImg" class="col-3" [alt]="blog.title" />
+          <img [src]="blog.blogImg" class="col-3" [alt]="blog.title" width="250px" height="200px" />
         </div>
 
         <div class="card-footer text-end">

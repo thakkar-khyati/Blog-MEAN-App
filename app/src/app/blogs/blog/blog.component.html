@@ -9,7 +9,9 @@
 
                 <h1 class="fs-2">{{ selected.title }}</h1>
                 <p class="text-end">
-                  <button class="btn btn-primary mx-2 mb-2" routerLink="/blog">
+                  <button class="btn btn-primary mx-2 mb-2"
+                  (click)="openSBar(selected.title+' blog closed')"
+                  routerLink="/blog">
                     close
                   </button>
               </p>

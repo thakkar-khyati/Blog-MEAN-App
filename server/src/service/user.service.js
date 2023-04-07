@@ -1,10 +1,13 @@
+const path = require("path");
 const User = require("../model/user");
+const fs = require("fs");
 
 const getAllUser = async (req, res) => {
   try {
     let users = await User.find({});
     res.send(users);
   } catch (error) {
+    console.log('can not connect with server')
     res.status(500).send(error);
   }
 };
@@ -13,10 +16,12 @@ const getUser = async (req, res) => {
   try {
     let user = await User.findById(req.params.id);
     if (!user) {
+      console.log('User not found')
       return res.status(400).send("user not found");
     }
     res.send(user);
   } catch (error) {
+    console.log('can not connect with server')
     res.status(500).send(error);
   }
 };
@@ -44,6 +49,9 @@ const createUser = async (req, res) => {
       mNumber: req.body.mNumber,
       role: req.body.role,
       password: req.body.password,
+      address: req.body.address,
+      Dob: req.body.Dob,
+      hobbies: req.body.hobbies,
       avatar: imagePath,
     });
     await user.save();
@@ -51,6 +59,7 @@ const createUser = async (req, res) => {
     res.send(user);
   } catch (error) {
     res.status(500).send(error);
+    console.log("can not connect with server");
   }
 };
 
@@ -59,6 +68,7 @@ const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
+      console.log("User not Found")
       return res.status(400).send("user not found");
     }
     updates.forEach((update) => {
@@ -71,6 +81,7 @@ const updateUser = async (req, res) => {
     await user.save();
     res.send(user);
   } catch (error) {
+    console.log('can not connect with server')
     res.status(500).send();
   }
 };
@@ -79,10 +90,21 @@ const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
+      console.log('User not Found')
       return res.status(400).send("user not found");
     }
+    const filename = user.avatar.replace("http://localhost:3000/images/","");
+    const directoryPath = "/home/aspire001/node/Blog-mean/server/images/";
+    const path = directoryPath+filename
+    fs.unlink(path, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    
     res.send(user);
   } catch (error) {
+    console.log('can not connect with server')
     res.status(500).send(error);
   }
 };
@@ -93,5 +115,5 @@ module.exports = {
   login,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };

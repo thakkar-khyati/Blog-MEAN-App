@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/Api/api.service';
 import { Blog } from 'src/app/Models/blog.model';
 import { DialogComponent } from '../dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-blog',
@@ -22,7 +23,8 @@ export class BlogComponent implements OnInit {
     private route: ActivatedRoute,
     private api: ApiService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -66,5 +68,13 @@ export class BlogComponent implements OnInit {
           this.getBlogData();
         }
       });
+  }
+
+  openSBar(msg:string){
+    this.sBar.open(msg,'close',{
+      duration:1000,
+      verticalPosition:'top',
+      horizontalPosition:'end',
+    })
   }
 }
