@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserApiService } from 'src/app/Api/user-api.service';
 import { User } from 'src/app/Models/user.model';
@@ -24,7 +25,8 @@ export class UpdateComponent implements OnInit {
     private userApi: UserApiService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +64,7 @@ export class UpdateComponent implements OnInit {
       data.avatar,
       data._id
     );
+    this.openSnackBar(`${data.name}'s data updated`)
     this.router.navigate(['/user/' + this._id]);
   }
 
@@ -88,4 +91,13 @@ export class UpdateComponent implements OnInit {
     this.file = event.target.files[0];
     this.updateForm.controls['avatar'].setValue(this.file);
   }
+
+  openSnackBar(msg:string){
+    this.snackBar.open(msg,'close',{
+      duration:2000,
+      horizontalPosition:'end',
+      verticalPosition:'top'
+    })
+  }
+
 }

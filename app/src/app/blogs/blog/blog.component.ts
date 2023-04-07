@@ -46,10 +46,12 @@ export class BlogComponent implements OnInit {
   deleteBlog() {
     this.api.deleteBlog(this.blogId).subscribe({
       next: (res) => {
-        console.log('blog deleted');
+        this.openSBar(`Blog: ${this.selected.title} deleted`)
+        //console.log('blog deleted');
         this.router.navigate(['/blog']);
       },
       error: (e) => {
+        this.openSBar(`Blog: ${this.selected.title} is not deleted`)
         console.log(e);
       },
     });

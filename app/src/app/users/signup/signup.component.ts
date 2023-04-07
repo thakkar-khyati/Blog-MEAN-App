@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserApiService } from 'src/app/Api/user-api.service';
 
@@ -18,7 +19,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userAPi: UserApiService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +52,7 @@ export class SignupComponent implements OnInit {
         data.hobbies,
         data.avatar
       );
+      this.openSnackBar(`User: ${data.name} added`)
       this.router.navigate(['/login']);
       this.signupForm.reset();
     }
@@ -58,5 +61,13 @@ export class SignupComponent implements OnInit {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     console.log(this.file);
+  }
+
+  openSnackBar(msg:string){
+    this.snackBar.open(msg,'close',{
+      duration:2000,
+      verticalPosition:'top',
+      horizontalPosition:'end'
+    })
   }
 }
