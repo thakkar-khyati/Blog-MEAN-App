@@ -1,0 +1,34 @@
+<div mat-dialog-title>
+  <h1>Update Blog Image</h1>
+</div>
+<div mat-dialog-content>
+  <form [formGroup]="UpdateBlogImg" (ngSubmit)="update()">
+    <div class="mb-2">
+      <label for="blogImg" class="form-label fw-lighter"
+        >Enter Avatar for your user</label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="blogImg"
+        formControlName="blogImg"
+        placeholder="blogImg"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+      UpdateBlogImg.controls['blogImg'].invalid &&
+      UpdateBlogImg.controls['blogImg'].touched
+      "
+    >
+      enter an image for Blog Image
+    </div>
+    <br>
+    <div>
+      <button class="btn btn-primary">Update</button>
+      <button class="btn btn-danger mx-3" mat-dialog-close>Close</button>
+    </div>
+  </form>
+</div>

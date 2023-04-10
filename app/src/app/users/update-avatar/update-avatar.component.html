@@ -1,0 +1,34 @@
+<div mat-dialog-title>
+  <h1>Update Your Avatar</h1>
+</div>
+<div mat-dialog-content>
+  <form [formGroup]="updateAvatarForm" (ngSubmit)="updateAvatar()">
+    <div class="mb-2">
+      <label for="avatar" class="form-label fw-lighter"
+        >Enter Avatar for your user</label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="avatar"
+        formControlName="avatar"
+        placeholder="avatar"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        updateAvatarForm.controls['avatar'].invalid &&
+        updateAvatarForm.controls['avatar'].touched
+      "
+    >
+      enter an image for avatar
+    </div>
+    <br>
+    <div>
+      <button class="btn btn-primary">Update</button>
+      <button class="btn btn-danger mx-3" mat-dialog-close>Close</button>
+    </div>
+  </form>
+</div>

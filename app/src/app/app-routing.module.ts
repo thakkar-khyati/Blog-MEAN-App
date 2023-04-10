@@ -8,6 +8,7 @@ import { SignupComponent } from './users/signup/signup.component';
 import { UpdateComponent } from './users/update/update.component';
 import { LoginComponent } from './users/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
+import { UpdateAvatarComponent } from './users/update-avatar/update-avatar.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'blog',pathMatch:'full'},
@@ -17,7 +18,7 @@ const routes: Routes = [
   {path:'user/:id',canActivate:[AuthGuard],component:UserComponent},
   {path:'signup',component:SignupComponent},
   {path:'update/:id',canActivate:[AuthGuard],component:UpdateComponent},
-  {path:'login',component:LoginComponent}
+  {path:'login',component:LoginComponent},
 ];
 
 @NgModule({

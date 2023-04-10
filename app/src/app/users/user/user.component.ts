@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterEvent } from '@angular/router';
 import { UserApiService } from 'src/app/Api/user-api.service';
 import { User } from 'src/app/Models/user.model';
+import { UpdateAvatarComponent } from '../update-avatar/update-avatar.component';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +22,8 @@ export class UserComponent implements OnInit {
     private userApi: UserApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog:MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +51,13 @@ export class UserComponent implements OnInit {
     });
   }
 
+  updateAvatar(){
+    this.dialog.open(UpdateAvatarComponent,{
+      width:"80%",
+      height:"40%",
+      data:this.selected
+    })
+  }
 
   openSnackBar(msg:string){
     this.snackBar.open(msg,'close',{

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { DialogComponent } from './blogs/dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +23,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { UpdateAvatarComponent } from './users/update-avatar/update-avatar.component';
+import { UpdateBlogImgComponent } from './blogs/update-blog-img/update-blog-img.component';
+import { UpdateBlogComponent } from './blogs/update-blog/update-blog.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     SignupComponent,
     UpdateComponent,
     LoginComponent,
+    UpdateAvatarComponent,
+    UpdateBlogImgComponent,
+    UpdateBlogComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,13 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     NgxPaginationModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

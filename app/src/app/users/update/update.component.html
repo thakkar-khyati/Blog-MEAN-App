@@ -8,7 +8,13 @@
   <div class="row align-content-center justify content center">
     <div class="col-2"></div>
     <div class="col-8">
-      <form [formGroup]="updateForm">
+      <form [formGroup]="updateForm" (ngSubmit)="update()">
+        <!-- <div>
+          <img [src]="user.avatar" alt="user.name">
+          <button class="btn m-5 btn-success">
+            Update Avatar
+          </button>
+        </div> -->
         <div class="mb-2">
           <label for="name">Name:</label>
           <input
@@ -28,7 +34,7 @@
         >
           enter a name
         </div>
-        <div class="mb-2">
+        <!-- <div class="mb-2">
           <label for="avatar" class="form-label fw-lighter"
             >Enter Avatar for your user</label
           >
@@ -40,8 +46,8 @@
             placeholder="avatar"
             (change)="onFileSelected($event)"
           />
-        </div>
-        <div
+        </div> -->
+        <!-- <div
           class="text-danger"
           *ngIf="
             updateForm.controls['avatar'].invalid &&
@@ -49,7 +55,7 @@
           "
         >
           enter an image for avatar
-        </div>
+        </div> -->
         <div class="mb-2">
           <label for="email">Email Address:</label>
           <input
@@ -177,7 +183,6 @@
           <button
             type="submit"
             class="btn btn-primary btn-lg"
-            (click)="update()"
           >
             Update
           </button>

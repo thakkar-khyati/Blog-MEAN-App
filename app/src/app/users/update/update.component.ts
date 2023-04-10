@@ -32,7 +32,6 @@ export class UpdateComponent implements OnInit {
   ngOnInit(): void {
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
-      avatar: [null, Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mNumber: ['', [Validators.minLength(10), Validators.required]],
       role: ['', Validators.required],
@@ -47,22 +46,11 @@ export class UpdateComponent implements OnInit {
   }
 
   update() {
-    this.updateForm.value.avatar = this.file;
     const data = this.updateForm.value;
     data._id = this._id;
     data.password = this.user.password;
-    console.log(data);
     this.userApi.updateUser(
-      data.name,
-      data.email,
-      data.mNumber,
-      data.role,
-      data.password,
-      data.address,
-      data.Dob,
-      data.hobbies,
-      data.avatar,
-      data._id
+      data
     );
     this.openSnackBar(`${data.name}'s data updated`)
     this.router.navigate(['/user/' + this._id]);

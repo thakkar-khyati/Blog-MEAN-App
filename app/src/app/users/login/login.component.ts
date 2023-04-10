@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           //console.log(`logged in as ${res.name}`);
+          console.log(res)
+          localStorage.setItem('token',res.token)
+          res = res.user
           if (res.role === 'admin') {
             localStorage.setItem('admin', 'true');
           } else if(res.role === 'writer'){

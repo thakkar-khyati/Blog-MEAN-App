@@ -27,7 +27,7 @@ export class UserApiService {
     return this.http.post('http://localhost:3000/user/login',user)
   }
 
-  postUser(name:string, email:string, mNumber:string, role:string, password:string,address:string,Dob:any,hobbies:string, avatar:string):void{
+  postUser(name:string, email:string, mNumber:string, role:string, password:string,address:string,Dob:any,hobbies:string, avatar:any):void{
     const userform= new FormData()
     userform.append('name',name)
     userform.append('email',email)
@@ -53,26 +53,22 @@ export class UserApiService {
     return this.http.delete('http://localhost:3000/user/'+id)
   }
 
-  updateUser(name:string, email:string, mNumber:string, role:string, password:string,address:string,Dob:any,hobbies:string, avatar:string,id:string){
-    const userform = new FormData()
-    userform.append('name',name)
-    userform.append('email',email)
-    userform.append('mNumber',mNumber)
-    userform.append('role',role)
-    userform.append('password',password)
-    userform.append('address',address)
-    userform.append('Dob',Dob)
-    userform.append('hobbies',hobbies)
-    userform.append('avatar',avatar,name)
+  updateUser(user:User){
 
-    return this.http.put('http://localhost:3000/user/'+id,userform).subscribe({
+    return this.http.patch('http://localhost:3000/user/'+user._id,user).subscribe({
       next:(res)=>{
-        console.log(`${name}'s data updated`)
+        console.log(`${user.name}'s data updated`)
       },
       error:(e)=>{
         console.log(e)
       }
     })
+  }
+
+  updateAvatar(id:string,avatar:any, name:string){
+    const updateAvatar = new FormData()
+    updateAvatar.append('avatar',avatar,name)
+    return this.http.patch("http://localhost:3000/user/avatar/"+id,updateAvatar)
   }
 
 }

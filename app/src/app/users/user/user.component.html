@@ -11,7 +11,17 @@
       <div class="card">
         <div class="card-body">
           <div *ngIf="selected.avatar">
-            <img [src]="selected.avatar" alt="" width="150px" height="150px" />
+            <div>
+              <img
+                [src]="selected.avatar"
+                alt=""
+                width="150px"
+                height="150px"
+              />
+            </div>
+            <button class="btn btn-success mt-2"
+            (click)="updateAvatar()"
+            >Update Avatar</button>
             <hr />
           </div>
           <span class="fw-bold">Name: </span> {{ selected.name }}
@@ -49,7 +59,7 @@
 
             <button
               class="btn-danger btn mx-1"
-              (click)="openSnackBar(selected.name+' detail clsed')"
+              (click)="openSnackBar(selected.name + ' detail clsed')"
               [routerLink]="['/user']"
             >
               Close

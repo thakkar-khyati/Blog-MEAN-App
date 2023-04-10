@@ -52,7 +52,7 @@ const updateBlog = async (req, res) => {
       console.log('Blog not Found')
       return res.status(400).send("blog not found");
     }
-    blog.blogImg = "http://localhost:3000/images/" + req.file.filename;
+    //blog.blogImg = "http://localhost:3000/images/" + req.file.filename;
     updates.forEach((update) => {
       blog[update] = req.body[update];
     });
@@ -64,6 +64,22 @@ const updateBlog = async (req, res) => {
     res.status(500).send();
   }
 };
+
+const updateBlogImg= async (req,res)=>{
+  try {
+    const blog = await Blog.findById(req.params.id)
+    if(!blog){
+      console.log('Blog not Found')
+      res.status(400).send('Blog not Found')
+    }
+    blog.blogImg = 'http://localhost:3000/images/'+req.file.filename;
+    await blog.save()
+    res.send(blog)
+  } catch (error) {
+    console.log('can not connect to server')
+    res.status(500).send()
+  }
+}
 
 const deleteBlog = async (req, res) => {
   try {
@@ -93,5 +109,6 @@ module.exports = {
   getBlog,
   createBlog,
   updateBlog,
+  updateBlogImg,
   deleteBlog,
 };

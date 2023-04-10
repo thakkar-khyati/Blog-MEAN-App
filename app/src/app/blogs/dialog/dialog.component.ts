@@ -51,49 +51,22 @@ export class DialogComponent implements OnInit {
   }
 
   addBlog() {
-    if (!this.editBlog) {
-      if (this.blogForm.valid) {
-        this.blogForm.value.blogImg = this.file;
-        const data = this.blogForm.value;
-        this.api.postBlog(
-          data.name,
-          data.email,
-          data.title,
-          data.summery,
-          data.content,
-          data.blogImg
-        );
-        this.openSnackBar(`${this.editBlog.title} added`);
-        this.router.navigate(['/blog']);
-        location.reload();
-        this.blogForm.reset();
-        this.dialogRef.close('save');
-      }
-    } else {
-      this.updateBlog();
-      this.openSnackBar(`${this.editBlog.title} updated`);
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
+    if (this.blogForm.valid) {
+      this.blogForm.value.blogImg = this.file;
+      const data = this.blogForm.value;
+      this.api.postBlog(
+        data.name,
+        data.email,
+        data.title,
+        data.summery,
+        data.content,
+        data.blogImg
+      );
+      this.openSnackBar(`${data.title} added`);
+      this.blogForm.reset();
+      this.dialogRef.close('save');
+      this.router.navigate(['/blog']);
     }
-  }
-
-  updateBlog() {
-    this.blogForm.value.blogImg = this.file;
-    const data = this.blogForm.value;
-    data.blogImg = this.file;
-    data._id = this.editBlog._id;
-    this.api.updateBlog(
-      data.name,
-      data.email,
-      data.title,
-      data.summery,
-      data.content,
-      data.blogImg,
-      data._id
-    );
-    this.blogForm.reset();
-    this.dialogRef.close('save');
   }
 
   onFileSelected(event: any) {

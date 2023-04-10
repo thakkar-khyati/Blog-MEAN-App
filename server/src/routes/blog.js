@@ -5,11 +5,13 @@ const {
   getBlog,
   createBlog,
   updateBlog,
+  updateBlogImg,
   deleteBlog
 } = require("../service/blog.service");
 const router = express.Router();
 
 const storage = require("../middleware/storage");
+const auth = require("../middleware/auth");
 
 //get all blogs
 router.get("/", getAllBlog);
@@ -18,12 +20,15 @@ router.get("/", getAllBlog);
 router.get("/:id", getBlog);
 
 //create blog
-router.post("/", storage, createBlog);
+router.post("/", [auth,storage], createBlog);
 
 //delete blog by id
-router.delete("/:id", deleteBlog);
+router.delete("/:id",auth, deleteBlog);
 
 //update blog
-router.put("/:id", storage, updateBlog);
+router.patch("/:id",auth,updateBlog);
+
+//update blog image
+router.patch('/blogImg/:id',[auth,storage],updateBlogImg);
 
 module.exports = router;

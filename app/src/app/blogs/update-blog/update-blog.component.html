@@ -3,7 +3,7 @@
   <hr />
 </div>
 <div mat-dialog-content>
-  <form [formGroup]="blogForm" (ngSubmit)="addBlog()">
+  <form [formGroup]="blogForm" (ngSubmit)="updateBlog()">
     <div class="my-2">
       <input
         type="text"
@@ -56,25 +56,6 @@
       Title Required
     </div>
     <div class="my-2">
-        <label class="my-2" for="blogImg">Add an image for your Blog</label>
-      <input
-        type="file"
-        class="form-control"
-        id="blogImg"
-        placeholder="Image for Your Blog"
-        formControlName="blogImg"
-        (change)="onFileSelected($event)"
-      />
-    </div>
-    <div
-      class="text-danger"
-      *ngIf="
-        blogForm.controls['blogImg'].invalid && blogForm.controls['blogImg'].touched
-      "
-    >
-      Image Required
-    </div>
-    <div class="my-2">
       <textarea
         type="text"
         class="form-control"
@@ -115,9 +96,10 @@
     <div mat-dialog-actions>
       <div class="justify-content-end">
         <div>
-          <button type="submit" class="btn btn-primary mx-2 btn-lg" > Save </button>
+          <button type="submit" class="btn btn-primary mx-2 btn-lg" [routerLink]="['/blog']" > Update </button>
           <button class="btn btn-danger mx-2 btn-lg" mat-dialog-close>Cancel</button>
         </div>
+
       </div>
     </div>
   </form>

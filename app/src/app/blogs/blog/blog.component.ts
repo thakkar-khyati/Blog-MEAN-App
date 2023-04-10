@@ -5,6 +5,8 @@ import { ApiService } from 'src/app/Api/api.service';
 import { Blog } from 'src/app/Models/blog.model';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UpdateBlogImgComponent } from '../update-blog-img/update-blog-img.component';
+import { UpdateBlogComponent } from '../update-blog/update-blog.component';
 
 @Component({
   selector: 'app-blog',
@@ -59,7 +61,7 @@ export class BlogComponent implements OnInit {
 
   updateBlog() {
     this.dialog
-      .open(DialogComponent, {
+      .open(UpdateBlogComponent, {
         width: '80%',
         height: '80%',
         data: this.selected,
@@ -70,6 +72,14 @@ export class BlogComponent implements OnInit {
           this.getBlogData();
         }
       });
+  }
+
+  updateBlogImg(){
+    this.dialog.open(UpdateBlogImgComponent,{
+      width:'80%',
+      height:'40%',
+      data:this.selected
+    })
   }
 
   openSBar(msg:string){

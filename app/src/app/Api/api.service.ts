@@ -54,25 +54,9 @@ export class ApiService {
     return this.http.delete('http://localhost:3000/blog/' + id);
   }
 
-  updateBlog(
-    name: string,
-    email: string,
-    title: string,
-    summery: string,
-    content: string,
-    blogImg: File,
-    id: string
-  ) {
-    const blogForm = new FormData();
-    blogForm.append('name', name);
-    blogForm.append('email', email);
-    blogForm.append('title', title);
-    blogForm.append('summery', summery);
-    blogForm.append('content', content);
-    blogForm.append('blogImg', blogImg, title);
-    console.log('blogImg', blogImg);
+  updateBlog(data: Blog) {
     return this.http
-      .put('http://localhost:3000/blog/' + id, blogForm)
+      .patch('http://localhost:3000/blog/' + data._id, data)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -83,5 +67,11 @@ export class ApiService {
           console.log(e);
         },
       });
+  }
+
+  updateBlogImg(id:string, blogImg:any, title:string){
+    const updateBlogImg = new FormData()
+    updateBlogImg.append('blogImg',blogImg,title)
+    return this.http.patch('http://localhost:3000/blog/blogImg/'+id,updateBlogImg)
   }
 }

@@ -7,7 +7,7 @@ const getAllUser = async (req, res) => {
     let users = await User.find({});
     res.send(users);
   } catch (error) {
-    console.log('can not connect with server')
+    console.log("can not connect with server");
     res.status(500).send(error);
   }
 };
@@ -16,12 +16,12 @@ const getUser = async (req, res) => {
   try {
     let user = await User.findById(req.params.id);
     if (!user) {
-      console.log('User not found')
+      console.log("User not found");
       return res.status(400).send("user not found");
     }
     res.send(user);
   } catch (error) {
-    console.log('can not connect with server')
+    console.log("can not connect with server");
     res.status(500).send(error);
   }
 };
@@ -32,8 +32,9 @@ const login = async (req, res) => {
       req.body.email,
       req.body.password
     );
-    //const token = await user.getAuthToken();
-    res.send(user);
+    const token = await user.getAuthToken();
+    user.tokens = user.tokens.concat({token})
+    res.send({user,token});
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
@@ -68,43 +69,55 @@ const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
-      console.log("User not Found")
+      console.log("User not Found");
       return res.status(400).send("user not found");
     }
     updates.forEach((update) => {
-      if (update === "avatar") {
-        user.avatar = "http://localhost:3000/images/" + req.file.filename;
-      } else {
-        user[update] = req.body[update];
-      }
+      user[update] = req.body[update];
     });
     await user.save();
     res.send(user);
   } catch (error) {
-    console.log('can not connect with server')
+    console.log("can not connect with server");
     res.status(500).send();
   }
 };
+
+const updateAvatar = async(req,res)=>{
+  try {
+    const user = await User.findById(req.params.id);
+    if(!user){
+      console.log("User not found")
+      res.status(400).send("User not found")
+    }
+    user.avatar = "http://localhost:3000/images/"+req.file.filename
+    await user.save()
+    res.send(user)
+  } catch (error) {
+    console.log("can not connect with the server")
+    res.status(500).send()
+  }
+}
 
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      console.log('User not Found')
+      console.log("User not Found");
       return res.status(400).send("user not found");
     }
-    const filename = user.avatar.replace("http://localhost:3000/images/","");
+    const filename = user.avatar.replace("http://localhost:3000/images/", "");
     const directoryPath = "/home/aspire001/node/Blog-mean/server/images/";
-    const path = directoryPath+filename
+    const path = directoryPath + filename;
     fs.unlink(path, (err) => {
       if (err) {
         console.log(err);
       }
     });
-    
+
     res.send(user);
   } catch (error) {
-    console.log('can not connect with server')
+    console.log("can not connect with server");
     res.status(500).send(error);
   }
 };
@@ -115,5 +128,6 @@ module.exports = {
   login,
   createUser,
   updateUser,
+  updateAvatar,
   deleteUser,
 };
