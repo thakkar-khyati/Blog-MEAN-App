@@ -9,6 +9,8 @@ import { UpdateComponent } from './users/update/update.component';
 import { LoginComponent } from './users/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { UpdateAvatarComponent } from './users/update-avatar/update-avatar.component';
+import { ForgetPasswordComponent } from './users/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'blog',pathMatch:'full'},
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'update/:id',canActivate:[AuthGuard],component:UpdateComponent},
   {path:'login',component:LoginComponent},
+  {path:'forget-password',component:ForgetPasswordComponent},
+  {path:'reset-password/:id/:token',component:ResetPasswordComponent}
 ];
 
 @NgModule({

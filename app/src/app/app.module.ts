@@ -27,6 +27,8 @@ import { UpdateAvatarComponent } from './users/update-avatar/update-avatar.compo
 import { UpdateBlogImgComponent } from './blogs/update-blog-img/update-blog-img.component';
 import { UpdateBlogComponent } from './blogs/update-blog/update-blog.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { ForgetPasswordComponent } from './users/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     UpdateAvatarComponent,
     UpdateBlogImgComponent,
     UpdateBlogComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

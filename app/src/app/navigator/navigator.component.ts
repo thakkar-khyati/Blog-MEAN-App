@@ -17,6 +17,7 @@ export class NavigatorComponent implements OnInit {
   user = localStorage.getItem('user');
   writer = localStorage.getItem('writer');
   id = localStorage.getItem('_id');
+  token = localStorage.getItem('token')
 
   constructor(
     private dialog: MatDialog,
@@ -32,6 +33,9 @@ export class NavigatorComponent implements OnInit {
   }
 
   logOut() {
+    if(this.id){
+      this.userApi.logout(this.id)
+    }
     localStorage.removeItem('admin');
     localStorage.removeItem('user');
     localStorage.removeItem('_id');

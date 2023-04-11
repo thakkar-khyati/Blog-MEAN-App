@@ -1,6 +1,8 @@
 const path = require("path");
 const User = require("../model/user");
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const getAllUser = async (req, res) => {
   try {
@@ -33,8 +35,8 @@ const login = async (req, res) => {
       req.body.password
     );
     const token = await user.getAuthToken();
-    user.tokens = user.tokens.concat({token})
-    res.send({user,token});
+    user.tokens = user.tokens.concat({ token });
+    res.send({ user, token });
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
@@ -83,21 +85,21 @@ const updateUser = async (req, res) => {
   }
 };
 
-const updateAvatar = async(req,res)=>{
+const updateAvatar = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if(!user){
-      console.log("User not found")
-      res.status(400).send("User not found")
+    if (!user) {
+      console.log("User not found");
+      res.status(400).send("User not found");
     }
-    user.avatar = "http://localhost:3000/images/"+req.file.filename
-    await user.save()
-    res.send(user)
+    user.avatar = "http://localhost:3000/images/" + req.file.filename;
+    await user.save();
+    res.send(user);
   } catch (error) {
-    console.log("can not connect with the server")
-    res.status(500).send()
+    console.log("can not connect with the server");
+    res.status(500).send();
   }
-}
+};
 
 const deleteUser = async (req, res) => {
   try {
@@ -122,6 +124,97 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const forgetPassword = async (req, res) => {
+  try {
+    const user = await User.find({ email: req.body.email });
+    if (!user) {
+      console.log("user not found");
+      res.status(400).send("user not found");
+    }
+
+    const JSON_SECRET = "someBlogSeceretForJsonWebToken";
+    const secret = JSON_SECRET + user[0].password;
+
+    const payload = {
+      email: user[0].email,
+      _id: user[0]._id,
+    };
+
+    const token = jwt.sign(payload, secret, { expiresIn: "60m" });
+
+    const link = `http://localhost:4200/reset-password/${user[0]._id}/${token}`;
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      auth: {
+        user: "elisa.nader@ethereal.email",
+        pass: "zPth1HKbeJSfJpVSWb",
+      },
+    });
+
+    let info = await transporter.sendMail({
+      from:'"khyati thakkar" <khyatithakkar@gmail.com>',
+      to:user[0].email,
+      subject:'Reset Password for Blog User',
+      text:link,
+      html:`<a href=${link}>click here<a>`
+    })
+
+    res.send(info);
+  } catch (error) {
+    console.log("can not connect to server");
+    res.status(500).send(error);
+  }
+};
+
+const UserforResetPassword = async(req,res)=>{
+  try {
+    const user = await User.findById(req.params._id)
+    if(!user){
+      console.log("user not found")
+      res.status(400).send("user not found")
+    }
+
+    const JSON_SECRET = "someBlogSeceretForJsonWebToken";
+    const secret = JSON_SECRET + user.password
+
+    const payload = jwt.verify(req.params.token, secret)
+    res.send(payload)
+  } catch (error) {
+    console.log("can not connect to server")
+    res.status(500).send(error)
+  }
+}
+
+const resetPassword = async(req,res)=>{
+  try {
+    const user = await User.findById(req.body.id)
+    if(!user){
+      console.log("user not found")
+      res.status(400).send("user not found")
+    }
+    user.password = req.body.password
+    await user.save()
+    res.send(user)
+  } catch (error) {
+    console.log("can not connect to server")
+    res.status(500).send(error)
+  }
+}
+
+const logOut = async (req,res)=>{
+  try {
+    const user = await User.findById(req.body._id)
+    user.tokens = []
+    await user.save()
+    res.send(user)
+  } catch (error) {
+    
+    res.status(500).send(error)
+  }
+}
+
 module.exports = {
   getAllUser,
   getUser,
@@ -130,4 +223,8 @@ module.exports = {
   updateUser,
   updateAvatar,
   deleteUser,
+  forgetPassword,
+  UserforResetPassword,
+  resetPassword,
+  logOut
 };

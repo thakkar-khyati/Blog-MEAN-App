@@ -8,6 +8,10 @@ const {
   updateUser,
   updateAvatar,
   deleteUser,
+  forgetPassword,
+  UserforResetPassword,
+  resetPassword,
+  logOut
 } = require("../service/user.service");
 const router = express.Router();
 
@@ -34,5 +38,16 @@ router.patch("/avatar/:id",[auth,storage], updateAvatar);
 
 //delete user
 router.delete("/:id",auth, deleteUser);
+
+//sending link to email
+router.post("/forget-password",forgetPassword)
+
+//getting user for which password is changed
+router.get("/reset-password/:_id/:token",UserforResetPassword)
+
+//resetting password
+router.post("/reset-password",resetPassword)
+
+router.post('/logout',logOut)
 
 module.exports = router;
