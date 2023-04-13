@@ -71,6 +71,13 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    refreshTokens:[
+      {
+        refreshToken:{
+          type:String,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -100,12 +107,34 @@ userSchema.statics.findByCredentials = async (email, password) => {
 //generating JWT Tokens for login and signup
 userSchema.methods.getAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user.id.toString() }, "thisismyblogtask");
+  const secret = 'thisismyblogtask'
+  const payload = {
+    id : user._id
+  }
+  const token = jwt.sign(payload, secret,{
+    expiresIn:'15m'
+  });
 
   user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;
 };
+
+//generating refreshToken for when token expires
+userSchema.methods.getRefreshToken = async function(){
+  const user = this
+  const secret = 'someSecretForRefreshToken'
+  const payload = {
+    id:user._id
+  }
+  const refreshToken = jwt.sign(payload,secret,{
+    expiresIn:'1y'
+  })
+
+  user.refreshTokens = user.refreshTokens.concat({refreshToken})
+  await user.save()
+  return refreshToken
+}
 
 //hashing password
 userSchema.pre("save", async function (next) {

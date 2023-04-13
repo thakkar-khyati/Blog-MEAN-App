@@ -119,4 +119,20 @@ export class UserApiService {
       }
     })
   }
+
+  refreshToken(token:string, refreshToken:string){
+    const data={
+      token,
+      refreshToken
+    }
+    this.http.post("http://localhost:3000/user/refreshToken",data).subscribe({
+      next:(res:any)=>{
+        localStorage.setItem('token',res.newToken)
+        localStorage.setItem('refreshToken',res.newRefreshToken)
+      },
+      error:(error)=>{
+        console.log(error)
+      }
+    })
+  }
 }

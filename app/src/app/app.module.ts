@@ -29,6 +29,7 @@ import { UpdateBlogComponent } from './blogs/update-blog/update-blog.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { ForgetPasswordComponent } from './users/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
+import { TokenErrorInterceptor } from './interceptor/token-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,11 @@ import { ResetPasswordComponent } from './users/reset-password/reset-password.co
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi:true
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:TokenErrorInterceptor,
       multi:true
     }
   ],

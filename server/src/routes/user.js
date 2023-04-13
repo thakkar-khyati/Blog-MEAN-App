@@ -11,7 +11,8 @@ const {
   forgetPassword,
   UserforResetPassword,
   resetPassword,
-  logOut
+  logOut,
+  refreshToken
 } = require("../service/user.service");
 const router = express.Router();
 
@@ -48,6 +49,10 @@ router.get("/reset-password/:_id/:token",UserforResetPassword)
 //resetting password
 router.post("/reset-password",resetPassword)
 
+//logout
 router.post('/logout',logOut)
+
+//refreshToken
+router.post("/refreshToken",refreshToken)
 
 module.exports = router;

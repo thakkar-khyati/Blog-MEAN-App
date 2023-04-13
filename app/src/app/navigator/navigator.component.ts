@@ -40,6 +40,7 @@ export class NavigatorComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('_id');
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken')
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('writer');
     this.actionBtn = 'Login';

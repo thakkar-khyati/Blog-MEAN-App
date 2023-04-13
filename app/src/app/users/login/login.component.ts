@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
           //console.log(`logged in as ${res.name}`);
           console.log(res)
           localStorage.setItem('token',res.token)
+          localStorage.setItem('refreshToken',res.refreshToken)
           res = res.user
           if (res.role === 'admin') {
             localStorage.setItem('admin', 'true');

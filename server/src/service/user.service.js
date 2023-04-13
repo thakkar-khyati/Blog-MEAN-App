@@ -35,8 +35,10 @@ const login = async (req, res) => {
       req.body.password
     );
     const token = await user.getAuthToken();
+    const refreshToken = await user.getRefreshToken()
     user.tokens = user.tokens.concat({ token });
-    res.send({ user, token });
+    user.refreshTokens = user.refreshTokens.concat({refreshToken})
+    res.send({ user, token, refreshToken });
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
@@ -210,8 +212,26 @@ const logOut = async (req,res)=>{
     await user.save()
     res.send(user)
   } catch (error) {
-    
+    console.log("can not connect to server");
     res.status(500).send(error)
+  }
+}
+
+const refreshToken = async(req,res)=>{
+  try {
+    const refreshToken = req.body.refreshToken
+    const secret = 'someSecretForRefreshToken'
+    const payload = jwt.verify(refreshToken, secret)
+    const user = await User.findById(payload.id)
+    user.refreshTokens = []
+    user.tokens = []
+    const newToken = await user.getAuthToken()
+    const newRefreshToken = await user.getRefreshToken()
+    console.log(user)
+    res.send({user, newToken, newRefreshToken})
+  } catch (error) {
+    console.log("can not connect to server");
+    res.status(500).send('error')
   }
 }
 
@@ -226,5 +246,6 @@ module.exports = {
   forgetPassword,
   UserforResetPassword,
   resetPassword,
-  logOut
+  logOut,
+  refreshToken
 };
