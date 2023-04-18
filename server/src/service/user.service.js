@@ -3,6 +3,7 @@ const User = require("../model/user");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const moment = require('moment')
 
 const getAllUser = async (req, res) => {
   try {
@@ -227,7 +228,6 @@ const refreshToken = async(req,res)=>{
     user.tokens = []
     const newToken = await user.getAuthToken()
     const newRefreshToken = await user.getRefreshToken()
-    console.log(user)
     res.send({user, newToken, newRefreshToken})
   } catch (error) {
     console.log("can not connect to server");

@@ -146,10 +146,8 @@
             id="Dob"
             formControlName="Dob"
             placeholder="Date of Birth"
-            [matDatepicker]="picker"
-            [max]="today"
+            max="{{today | date:'yyyy-MM-dd'}}"
           />
-          <mat-datepicker #picker></mat-datepicker>
         </div>
         <div
           class="text-danger"
