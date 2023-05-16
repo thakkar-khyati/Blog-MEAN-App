@@ -1,5 +1,7 @@
 const Blog = require("../model/blog");
 const fs = require("fs")
+const dotenv = require("dotenv")
+dotenv.config()
 
 const getAllBlog = async (req, res) => {
   try {
@@ -27,7 +29,7 @@ const getBlog = async (req, res) => {
 
 const createBlog = (req, res) => {
   try {
-    imagePath = "http://localhost:3000/images/" + req.file.filename;
+    imagePath = process.env.imageURL + req.file.filename;
     let blog = new Blog({
       name: req.body.name,
       email: req.body.email,
@@ -72,7 +74,7 @@ const updateBlogImg= async (req,res)=>{
       console.log('Blog not Found')
       res.status(400).send('Blog not Found')
     }
-    blog.blogImg = 'http://localhost:3000/images/'+req.file.filename;
+    blog.blogImg = process.env.imageURL +req.file.filename;
     await blog.save()
     res.send(blog)
   } catch (error) {
@@ -88,8 +90,8 @@ const deleteBlog = async (req, res) => {
       console.log('Blog not Found')
       return res.status(400).send("blog not found");
     }
-    const filename = blog.blogImg.replace("http://localhost:3000/images/","");
-    const directoryPath = "/home/aspire001/node/Blog-mean/server/images/";
+    const filename = blog.blogImg.replace(process.env.imageURL ,"");
+    const directoryPath = process.env.imagePath;
     const path = directoryPath+filename
     fs.unlink(path, (err) => {
       if (err) {

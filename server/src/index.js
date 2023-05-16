@@ -2,16 +2,18 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
+const dotenv = require("dotenv")
 
 const mongoose = require('./db')
 const userRoutes = require('./routes/user')
 const blogRoutes = require('./routes/blog')
 
+dotenv.config()
 const app = express()
 
 app.use(bodyParser.json())
 
-const whitelist = ['http://localhost:4200', 'http://localhost:4201']
+const whitelist = process.env.whitelist
 
 const allowedUrl = {
     origin: function(origin,callback){
@@ -26,7 +28,7 @@ const allowedUrl = {
 
 app.use(cors(allowedUrl))
 
-app.listen(3000,()=>{
+app.listen(process.env.port || 3001,()=>{
     console.log('server running on 3000')
 })
 

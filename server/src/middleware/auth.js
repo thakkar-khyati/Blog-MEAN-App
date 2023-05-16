@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/user");
+const dotenv = require("dotenv")
+
+dotenv.config()
 
 const auth = async (req, res, next) => {
   try {
@@ -7,7 +10,7 @@ const auth = async (req, res, next) => {
     if(isTokenExpired(token)===true){
       return res.status(419).send()
     }
-    const decoded = jwt.verify(token, "thisismyblogtask");
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const user = await User.findOne({
       _id: decoded.id,
       "tokens.token": token,
@@ -27,7 +30,7 @@ const auth = async (req, res, next) => {
 
 function isTokenExpired(token) {
   try {
-    const decodedToken = jwt.verify(token, "thisismyblogtask");
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const expiritionTime = decodedToken.exp;
     const currentTime = Math.floor(Date.now() / 1000);
     return expiritionTime < currentTime;

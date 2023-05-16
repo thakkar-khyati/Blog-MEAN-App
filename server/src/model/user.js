@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv")
+
+dotenv.config()
 
 roles = ["admin", "user", "writer"];
 
@@ -107,7 +110,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 //generating JWT Tokens for login and signup
 userSchema.methods.getAuthToken = async function () {
   const user = this;
-  const secret = 'thisismyblogtask'
+  const secret = process.env.ACCESS_TOKEN_SECRET
   const payload = {
     id : user._id
   }
@@ -123,7 +126,7 @@ userSchema.methods.getAuthToken = async function () {
 //generating refreshToken for when token expires
 userSchema.methods.getRefreshToken = async function(){
   const user = this
-  const secret = 'someSecretForRefreshToken'
+  const secret = process.env.REFRESH_TOKEN_SECRET
   const payload = {
     id:user._id
   }

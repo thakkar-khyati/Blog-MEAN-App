@@ -3,7 +3,8 @@ const User = require("../model/user");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const moment = require('moment')
+const dotenv = require("dotenv")
+dotenv.config()
 
 const getAllUser = async (req, res) => {
   try {
@@ -48,7 +49,7 @@ const login = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    imagePath = "http://localhost:3000/images/" + req.file.filename;
+    imagePath = process.env.imageURL + req.file.filename;
     let user = await User({
       name: req.body.name,
       email: req.body.email,
@@ -95,7 +96,7 @@ const updateAvatar = async (req, res) => {
       console.log("User not found");
       res.status(400).send("User not found");
     }
-    user.avatar = "http://localhost:3000/images/" + req.file.filename;
+    user.avatar = process.env.imageURL + req.file.filename;
     await user.save();
     res.send(user);
   } catch (error) {
@@ -111,8 +112,8 @@ const deleteUser = async (req, res) => {
       console.log("User not Found");
       return res.status(400).send("user not found");
     }
-    const filename = user.avatar.replace("http://localhost:3000/images/", "");
-    const directoryPath = "/home/aspire001/node/Blog-mean/server/images/";
+    const filename = user.avatar.replace(process.env.imageURL, "");
+    const directoryPath = process.env.imagePath;
     const path = directoryPath + filename;
     fs.unlink(path, (err) => {
       if (err) {
@@ -135,7 +136,7 @@ const forgetPassword = async (req, res) => {
       res.status(400).send("user not found");
     }
 
-    const JSON_SECRET = "someBlogSeceretForJsonWebToken";
+    const JSON_SECRET = process.env.JSON_SECRET;
     const secret = JSON_SECRET + user[0].password;
 
     const payload = {
@@ -179,7 +180,7 @@ const UserforResetPassword = async(req,res)=>{
       res.status(400).send("user not found")
     }
 
-    const JSON_SECRET = "someBlogSeceretForJsonWebToken";
+    const JSON_SECRET = process.env.JSON_SECRET;
     const secret = JSON_SECRET + user.password
 
     const payload = jwt.verify(req.params.token, secret)
@@ -221,7 +222,7 @@ const logOut = async (req,res)=>{
 const refreshToken = async(req,res)=>{
   try {
     const refreshToken = req.body.refreshToken
-    const secret = 'someSecretForRefreshToken'
+    const secret = process.env.REFRESH_TOKEN_SECRET
     const payload = jwt.verify(refreshToken, secret)
     const user = await User.findById(payload.id)
     user.refreshTokens = []
