@@ -2,13 +2,15 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/user");
 const dotenv = require("dotenv")
 
+const utill = require("../utill.js")
+
 dotenv.config()
 
 const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization").split(" ")[1];
     if(isTokenExpired(token)===true){
-      return res.status(419).send()
+      return res.status(utill.status.pageExpired).send(utill.message.pageExpired)
     }
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const user = await User.findOne({
@@ -19,12 +21,13 @@ const auth = async (req, res, next) => {
     if (!user) {
       console.log("error");
       throw new Error();
+      //return res.status(utill.status.badRequest).send(utill.message.badRequest)
     }
     req.token = token;
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).send({ error: "please authenticate" });
+    res.status(utill.status.unauthorized).send({ error: "please authenticate" });
   }
 };
 

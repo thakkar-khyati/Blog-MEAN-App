@@ -3,13 +3,15 @@ const fs = require("fs")
 const dotenv = require("dotenv")
 dotenv.config()
 
+const utill = require("../utill.js")
+
 const getAllBlog = async (req, res) => {
   try {
     let blogs = await Blog.find({});
-    res.send(blogs);
+    res.status(utill.status.success).send(blogs);
   } catch (error) {
     console.log('can not connect with server')
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 
@@ -18,12 +20,12 @@ const getBlog = async (req, res) => {
     let blog = await Blog.findById(req.params.id);
     if (!blog) {
       console.log('Blog not Found')
-      return res.status(400).send("blog not found");
+      return res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
-    res.send(blog);
+    res.status(utill.status.success).send(blog);
   } catch (error) {
     console.log('can not connect with server')
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 
@@ -39,10 +41,10 @@ const createBlog = (req, res) => {
       blogImg: imagePath,
     });
     blog.save();
-    res.send(blog);
+    res.status(utill.status.success).send(blog);
   } catch (error) {
     console.log('can not connect with server')
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 
@@ -52,7 +54,7 @@ const updateBlog = async (req, res) => {
     let blog = await Blog.findById(req.params.id);
     if (!blog) {
       console.log('Blog not Found')
-      return res.status(400).send("blog not found");
+      return res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
     //blog.blogImg = "http://localhost:3000/images/" + req.file.filename;
     updates.forEach((update) => {
@@ -60,10 +62,10 @@ const updateBlog = async (req, res) => {
     });
 
     await blog.save();
-    res.send(blog);
+    res.status(utill.status.success).send(blog);
   } catch (error) {
     console.log('can not connect with server')
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 
@@ -72,14 +74,14 @@ const updateBlogImg= async (req,res)=>{
     const blog = await Blog.findById(req.params.id)
     if(!blog){
       console.log('Blog not Found')
-      res.status(400).send('Blog not Found')
+      res.status(utill.status.badRequest).send(utill.message.badRequest)
     }
     blog.blogImg = process.env.imageURL +req.file.filename;
     await blog.save()
-    res.send(blog)
+    res.status(utill.status.success).send(blog)
   } catch (error) {
     console.log('can not connect to server')
-    res.status(500).send()
+    res.status(utill.status.serverError).send(utill.message.serverError)
   }
 }
 
@@ -88,7 +90,7 @@ const deleteBlog = async (req, res) => {
     let blog = await Blog.findByIdAndDelete(req.params.id);
     if (!blog) {
       console.log('Blog not Found')
-      return res.status(400).send("blog not found");
+      return res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
     const filename = blog.blogImg.replace(process.env.imageURL ,"");
     const directoryPath = process.env.imagePath;
@@ -99,10 +101,10 @@ const deleteBlog = async (req, res) => {
       }
     });
     
-    res.send(blog);
+    res.status(utill.status.success).send(blog);
   } catch (error) {
     console.log('can not connect with server')
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 

@@ -6,13 +6,15 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv")
 dotenv.config()
 
+const utill = require("../utill.js")
+
 const getAllUser = async (req, res) => {
   try {
     let users = await User.find({});
-    res.send(users);
+    res.status(utill.status.success).send(users);
   } catch (error) {
     console.log("can not connect with server");
-    res.status(500).send(error);
+    res.status(utill.status.serverError).send(error);
   }
 };
 
@@ -21,12 +23,12 @@ const getUser = async (req, res) => {
     let user = await User.findById(req.params.id);
     if (!user) {
       console.log("User not found");
-      return res.status(400).send("user not found");
+      return res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
-    res.send(user);
+    res.status(utill.status.success).send(user);
   } catch (error) {
     console.log("can not connect with server");
-    res.status(500).send(error);
+    res.status(utill.status.serverError).send(error);
   }
 };
 
@@ -40,10 +42,10 @@ const login = async (req, res) => {
     const refreshToken = await user.getRefreshToken()
     user.tokens = user.tokens.concat({ token });
     user.refreshTokens = user.refreshTokens.concat({refreshToken})
-    res.send({ user, token, refreshToken });
+    res.status(utill.status.success).send({ user, token, refreshToken });
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    res.status(utill.status.badRequest).send(error);
   }
 };
 
@@ -63,9 +65,9 @@ const createUser = async (req, res) => {
     });
     await user.save();
     //const token = await user.getAuthToken();
-    res.send(user);
+    res.status(utill.status.success).send(user);
   } catch (error) {
-    res.status(500).send(error);
+    res.status(utill.status.serverError).send(error);
     console.log("can not connect with server");
   }
 };
@@ -76,16 +78,16 @@ const updateUser = async (req, res) => {
     const user = await User.findById(req.params.id);
     if (!user) {
       console.log("User not Found");
-      return res.status(400).send("user not found");
+      return res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
     updates.forEach((update) => {
       user[update] = req.body[update];
     });
     await user.save();
-    res.send(user);
+    res.status(utill.status.success).send(user);
   } catch (error) {
     console.log("can not connect with server");
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 
@@ -94,14 +96,14 @@ const updateAvatar = async (req, res) => {
     const user = await User.findById(req.params.id);
     if (!user) {
       console.log("User not found");
-      res.status(400).send("User not found");
+      res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
     user.avatar = process.env.imageURL + req.file.filename;
     await user.save();
-    res.send(user);
+    res.status(utill.status.success).send(user);
   } catch (error) {
     console.log("can not connect with the server");
-    res.status(500).send();
+    res.status(utill.status.serverError).send(utill.message.serverError);
   }
 };
 
@@ -110,7 +112,7 @@ const deleteUser = async (req, res) => {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
       console.log("User not Found");
-      return res.status(400).send("user not found");
+      return res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
     const filename = user.avatar.replace(process.env.imageURL, "");
     const directoryPath = process.env.imagePath;
@@ -121,10 +123,10 @@ const deleteUser = async (req, res) => {
       }
     });
 
-    res.send(user);
+    res.status(utill.status.success).send(user);
   } catch (error) {
     console.log("can not connect with server");
-    res.status(500).send(error);
+    res.status(utill.status.serverError).send(error);
   }
 };
 
@@ -133,7 +135,7 @@ const forgetPassword = async (req, res) => {
     const user = await User.find({ email: req.body.email });
     if (!user) {
       console.log("user not found");
-      res.status(400).send("user not found");
+      res.status(utill.status.badRequest).send(utill.message.badRequest);
     }
 
     const JSON_SECRET = process.env.JSON_SECRET;
@@ -165,10 +167,10 @@ const forgetPassword = async (req, res) => {
       html:`<a href=${link}>click here<a>`
     })
 
-    res.send(info);
+    res.status(utill.status.success).send(info);
   } catch (error) {
     console.log("can not connect to server");
-    res.status(500).send(error);
+    res.status(utill.status.serverError).send(error);
   }
 };
 
@@ -177,17 +179,17 @@ const UserforResetPassword = async(req,res)=>{
     const user = await User.findById(req.params._id)
     if(!user){
       console.log("user not found")
-      res.status(400).send("user not found")
+      res.status(utill.status.badRequest).send(utill.message.badRequest)
     }
 
     const JSON_SECRET = process.env.JSON_SECRET;
     const secret = JSON_SECRET + user.password
 
     const payload = jwt.verify(req.params.token, secret)
-    res.send(payload)
+    res.status(utill.status.success).send(payload)
   } catch (error) {
     console.log("can not connect to server")
-    res.status(500).send(error)
+    res.status(utill.status.serverError).send(error)
   }
 }
 
@@ -196,14 +198,14 @@ const resetPassword = async(req,res)=>{
     const user = await User.findById(req.body.id)
     if(!user){
       console.log("user not found")
-      res.status(400).send("user not found")
+      res.status(utill.status.badRequest).send(utill.message.badRequest)
     }
     user.password = req.body.password
     await user.save()
-    res.send(user)
+    res.status(utill.status.success).send(user)
   } catch (error) {
     console.log("can not connect to server")
-    res.status(500).send(error)
+    res.status(utill.status.serverError).send(error)
   }
 }
 
@@ -212,10 +214,10 @@ const logOut = async (req,res)=>{
     const user = await User.findById(req.body._id)
     user.tokens = []
     await user.save()
-    res.send(user)
+    res.status(utill.status.success).send(user)
   } catch (error) {
     console.log("can not connect to server");
-    res.status(500).send(error)
+    res.status(utill.status.serverError).send(error)
   }
 }
 
@@ -229,10 +231,10 @@ const refreshToken = async(req,res)=>{
     user.tokens = []
     const newToken = await user.getAuthToken()
     const newRefreshToken = await user.getRefreshToken()
-    res.send({user, newToken, newRefreshToken})
+    res.status(utill.status.success).send({user, newToken, newRefreshToken})
   } catch (error) {
     console.log("can not connect to server");
-    res.status(500).send('error')
+    res.status(utill.status.serverError).send('error')
   }
 }
 
