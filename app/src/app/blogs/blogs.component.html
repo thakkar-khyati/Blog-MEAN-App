@@ -31,7 +31,14 @@
           <pre
             class="fs-4 fw-bold col-9"
           >Summery: <p class="fs-6 fw-normal">            {{ blog.summery}}</p> </pre>
-          <img [src]="blog.blogImg" class="col-3" [alt]="blog.title" width="250px" height="200px" />
+          <img
+            [src]="blog.blogImg"
+            class="col-3"
+            [alt]="blog.title"
+            width="250px"
+            height="200px"
+            crossorigin="anonymous"
+          />
         </div>
 
         <div class="card-footer text-end">
@@ -57,7 +64,7 @@
         (pageChange)="onCardDataChange($event)"
       >
       </pagination-controls>
-      <br>
+      <br />
     </div>
 
     <br />
